@@ -1,0 +1,129 @@
+.page-eform-submit-free-course-request h1{
+  margin: 0 8px;
+}
+
+.fcrd-form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.fcrd-form label {
+  display: block;
+}
+
+.fcrd-form fieldset,
+.fcrd-form .form-submit {
+  margin-top: 1em;
+}
+
+.fcrd-form .description {
+  font-size: 0.9em;
+  margin-top: .5em;
+}
+
+.fcrd-form .user-message--wrapper {
+  -ms-flex: 0 1 45%; /* IE 10 */
+  flex: 0 1 45%;
+  order: 2;
+}
+
+.fcrd-form .user-message {
+  background: lightgrey;
+  box-sizing: border-box;
+  display: block;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: .5em;
+  width: 100%;
+}
+
+.fcrd-form > .entityform {
+  -ms-flex: 0 1 45%; /* IE 10 */
+  flex: 0 1 45%;
+  order: 1;
+}
+
+@media screen and (max-width: 860px) {
+  .fcrd-form > .user-message--wrapper {
+    -ms-flex: 0 1 100%; /* IE 10 */
+    flex: 0 1 100%;
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .fcrd-form > .entityform {
+    -ms-flex: 0 1 100%; /* IE 10 */
+    flex: 0 1 100%;
+    order: 2;
+  }
+}
+
+.fcrd-form .field-type-entityreference select {
+  height: 3em;
+  width: 100%;
+}
+
+.fcrd-form .field-name-field-rfcd-requested-amount input {
+  width: 50%;
+  display: inline-block;
+}
+
+.fcrd-form .field-name-field-rfcd-granted-amount input {
+  width: 50%;
+  display: inline-block;
+}
+
+.fcrd-form .field-name-field-rfcd-spent-amount input {
+  width: 50%;
+  display: inline-block;
+}
+
+.fcrd-form .price-info {
+  background: lightgrey;
+  box-sizing: border-box;
+  display: block;
+  padding: 1em;
+  margin: 1em 0 0;
+  border-radius: .5em;
+  width: 100%;
+}
+
+.fcrd-form .price-info .price-list span {
+  margin-right: 5px;
+}
+
+.fcrd-form .price-info ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.fcrd-receipt .content--main .block--field-label,
+.fcrd-receipt .content--main .block--field-text {
+  display: inline-block;
+  margin-top: 0;
+}
+
+.fcrd-receipt .content--main .block--field-label:after {
+  content: ':';
+}
+
+.fcrd-receipt .content--main h2 {
+  margin-top: 1.5em;
+}
+
+.fcrd-content {
+  margin: 0 8px;
+}
+
+.field-name-field-rfcd-send-mail > div,
+.field-name-field-rfcd-send-mail > div label {
+  display: inline-block;
+}
+
+#edit-field-rfcd-date-value-min-wrapper,
+#edit-field-rfcd-date-value-max-wrapper {
+  display: none;
+}

@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Holds update and install hooks for ulf_free_course_request_daycare
+ */
+function ulf_free_course_request_daycare_install () {
+  // Chosen contrib module is a dependency that will be enabled with this module.
+  // We configure it as part of this modules installation.
+  // Use chosen only for frontend displays.
+  variable_set('chosen_include', 1);
+  variable_set('chosen_minimum_single', 1);
+
+  // Add form to captcha.
+  db_insert('captcha_points')
+    ->fields(array(
+      'form_id' => 'free_course_request_daycare_entityform_edit_form',
+      'captcha_type' => 'default',
+    ))
+    ->execute();
+}
+
+function ulf_free_course_request_daycare_uninstall () {
+    db_delete('captcha_points')
+      ->condition('form_id', 'free_course_request_daycare_entityform_edit_form')
+      ->execute();
+}
+
+/**
+ * Add captcha to request form.
+ */
+function ulf_free_course_request_daycare_update_7100 () {
+  db_insert('captcha_points')
+  ->fields(array(
+    'form_id' => 'free_course_request_daycare_entityform_edit_form',
+    'captcha_type' => 'default',
+  ))
+    ->execute();
+}
+
+/**
+ * Populate provider name field
+ */
+function ulf_free_course_request_daycare_update_7101 () {
+  try {
+    $query = db_select('field_data_field_rfcd_provider', 'provider');
+    $query->fields('provider', ['entity_id']);
+    $query->leftJoin('field_data_field_profile_name', 'name', 'provider.field_rfcd_provider_target_id = name.entity_id');
+    $query->fields('name', ['field_profile_name_value']);
+    $query->leftJoin('field_data_field_rfcd_provider_name', 'provider_name', 'provider.entity_id = provider_name.entity_id');
+    $query->fields('provider_name', ['field_rfcd_provider_name_value']);
+    $query->condition('provider.bundle', 'free_course_request_daycare', '=');
+    $query->condition('name.bundle', 'user', '=');
+    $query->isNull('provider_name.field_rfcd_provider_name_value');
+    $result = $query->execute();
+    $map = [];
+    foreach ($result as $record) {
+      $map[$record->entity_id] = $record->field_profile_name_value;
+    }
+    $course_requests = entityform_load_multiple(array_keys($map));
+    $check = reset($course_requests);
+    if(property_exists($check, 'field_rfcd_provider_name')) {
+      foreach ($course_requests as $id => $course_request) {
+        $course_request->field_rfcd_provider_name[LANGUAGE_NONE][0]['value'] = $map[$id];
+        field_attach_presave('entityform', $course_request);
+        field_attach_update('entityform', $course_request);
+      }
+    }
+  } catch (Exception $e) {
+  }
+}

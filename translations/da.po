@@ -1,0 +1,2 @@
+msgid "Financing requests for daycare"
+msgstr "Gratis undervisnings- og læringsforløb for dagtilbud"

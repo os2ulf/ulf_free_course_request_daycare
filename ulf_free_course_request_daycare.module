@@ -1,0 +1,445 @@
+<?php
+/**
+ * @file
+ * Code for the Ulf free course request feature.
+ */
+
+include_once 'ulf_free_course_request_daycare.features.inc';
+include_once 'ulf_free_course_request_daycare.permissions.inc';
+include_once 'ulf_free_course_request_daycare.backend.inc';
+include_once 'ulf_free_course_request_daycare.actions.inc';
+include_once 'ulf_free_course_request_daycare.mail.inc';
+include_once 'ulf_free_course_request_daycare.form_alterations.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function ulf_free_course_request_daycare_menu() {
+  $items = [];
+
+  $items['admin/config/system/free_course_request_daycare/requests'] = [
+    'title' => 'Financing requests',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  ];
+
+  $items['admin/config/system/free_course_request_daycare/config'] = [
+    'title' => 'Config / Help texts',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['ulf_free_course_request_daycare_form_backend'],
+    'type' => MENU_LOCAL_TASK,
+    'access arguments' => ['administer ulf free course request daycare settings'],
+    'file' => 'ulf_free_course_request_daycare.backend.inc',
+    'file path' => drupal_get_path('module', 'ulf_free_course_request_daycare'),
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function ulf_free_course_request_daycare_cron() {
+  global $language;
+
+
+  if (variable_get('enable_free_course_daycare_follow_up_mails', FALSE)) {
+    if (date('G') > 8) {
+      $from = strtotime('yesterday 00:00 Europe/Copenhagen');
+      $to = strtotime('today 00:00 Europe/Copenhagen') - 1;
+      $query = db_select('field_data_field_rfcd_date', 'd');
+      $query->fields('d', ['entity_id']);
+      $query->leftJoin('field_data_field_rfcd_follow_up_mail_sent', 'f', 'd.entity_id = f.entity_id AND d.bundle = f.bundle');
+      $query->leftJoin('field_data_field_rfcd_status', 's', 'd.entity_id = s.entity_id');
+      $query->condition('d.field_rfcd_date_value', $from, '>=');
+      $query->condition('d.field_rfcd_date_value', $to, '<');
+      $query->condition('d.bundle', 'free_course_request_daycare', '=');
+      $query->condition('s.field_rfcd_status_value', ['accepted', 'awaiting_payment' , 'ready_for_payment', 'payment_completed'], 'IN');
+      $query->isNull('f.field_rfcd_follow_up_mail_sent_value');
+      $result = $query->execute()->fetchAllKeyed(0, 0);
+
+      foreach (entityform_load_multiple($result) as $course_request) {
+        parseFormDataDaycare($course_request);
+
+        $params = [];
+        $wrapper = $course_request->wrapper();
+        $provider = $wrapper->field_rfcd_provider->value();
+        $course = $wrapper->field_rfcd_course->value();
+
+        $params['user'] = $provider;
+        $params['node'] = $course;
+        $params['entityform'] = $course_request;
+
+        $to = $wrapper->field_rfcd_mail->value();
+        if (drupal_mail('ulf_free_course_request', 'free_course_request_daycare_follow_up_mail', $to, $language, $params)) {
+          $course_request->field_rfcd_follow_up_mail_sent[LANGUAGE_NONE][0]['value'] = time();
+          $course_request->field_rfcd_mails_sent[LANGUAGE_NONE][] = [
+            'value' => t('Follow up mail sent', array(), array('langcode' => $language->language)),
+            'format' => NULL,
+            'safe_value' => t('Follow up mail sent', array(), array('langcode' => $language->language)),
+          ];
+          field_attach_presave('entityform', $course_request);
+          field_attach_update('entityform', $course_request);
+        }
+      }
+    }
+  }
+}
+
+function parseFormDataDaycare(&$form_data) {
+  $form_data->field_rfcd_date[LANGUAGE_NONE][0]['value'] = format_date($form_data->field_rfcd_date[LANGUAGE_NONE][0]['value'], 'custom', 'j. F Y');
+}
+
+/**
+ * Implements hook_mailkeys().
+ */
+function ulf_free_course_request_daycare_mailkeys() {
+  return [
+    'free_course_request_daycare_follow_up_mail' => t('Mail sent to schools the day after the course was held.'),
+  ];
+}
+
+/**
+ * Implements hook_mail_edit_text().
+ */
+function ulf_free_course_request_daycare_mail_edit_text($mailkey, $language) {
+  $return = [];
+  switch ($mailkey) {
+    case 'free_course_request_daycare_follow_up_mail':
+      $return['subject'] = 'Evaluate the course';
+      $return['always'] = TRUE;
+      $return['body'] = 'Here is a body text';
+      break;
+  }
+  return $return;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function ulf_free_course_request_daycare_block_info() {
+  $blocks['free_course_request_dc_summary'] = [
+    'info' => 'Ansøgninger opsummering',
+  ];
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function ulf_free_course_request_daycare_block_view($delta = '') {
+  if ($delta == 'free_course_request_dc_summary') {
+    $block['subject'] = NULL;
+    $block['content']
+      = '<style>#block-ulf-free-course-request-daycare-free-course-request-dc-summary{float:right;}</style>';
+
+    $requested_amount = 0;
+    $granted_amount = 0;
+    $spent_amount = 0;
+
+    $params = drupal_get_query_parameters();
+    $query = db_select('entityform', 'e');
+    $query->leftJoin('field_data_field_rfcd_requested_amount', 'ra', 'e.entityform_id = ra.entity_id');
+    $query->leftJoin('field_data_field_rfcd_granted_amount', 'ga', 'e.entityform_id = ga.entity_id');
+    $query->leftJoin('field_data_field_rfcd_spent_amount', 'sa', 'e.entityform_id = sa.entity_id');
+
+    $query->condition('e.type', 'free_course_request_daycare');
+    if (isset($params['field_rfcd_date_value'])
+      || isset($params['field_rfcd_date_value_1'])
+      || isset($params['field_rfcd_date_value_2'])
+    ) {
+      $query->leftJoin('field_data_field_rfcd_date', 'd', 'e.entityform_id = d.entity_id');
+      if (isset($params['field_rfcd_date_value']['value']['date'])
+        && $params['field_rfcd_date_value']['value']['date'] != ''
+      ) {
+        $parts = explode('/', $params['field_rfcd_date_value']['value']['date']);
+        $time = strtotime($parts[2] . $parts[1] . $parts[0]);
+        if ($time > 0) {
+          $query->condition('d.field_rfcd_date_value', $time, '>');
+        }
+      }
+      if (isset($params['field_rfcd_date_value_1']['value']['date'])
+        && $params['field_rfcd_date_value_1']['value']['date'] != ''
+      ) {
+        $parts
+          = explode('/', $params['field_rfcd_date_value_1']['value']['date']);
+        $time = strtotime($parts[2] . $parts[1] . $parts[0]);
+        if ($time > 0) {
+          $query->condition('d.field_rfcd_date_value', $time, '<');
+        }
+      }
+      if (isset($params['field_rfcd_date_value_2']['semester'])
+        && count($params['field_rfcd_date_value_2']['semester']) > 0
+      ) {
+        $condition_group = db_or();
+        foreach ($params['field_rfcd_date_value_2']['semester'] as $semester) {
+          $exp = explode('_', $semester);
+          if (count($exp) == 2) {
+            $args = $exp[1] == 1
+              ? [
+                ':semester_' . $semester . '_min' => $exp[0] . '-01',
+                ':semester_' . $semester . '_max' => $exp[0] . '-06',
+              ]
+              : [
+                ':semester_' . $semester . '_min' => $exp[0] . '-07',
+                ':semester_' . $semester . '_max' => $exp[0] . '-12',
+              ];
+            $condition_group->where(
+              'DATE_FORMAT(FROM_UNIXTIME(d.field_rfcd_date_value), \'%Y-%m\') >= :semester_'
+              . $semester
+              . '_min AND DATE_FORMAT(FROM_UNIXTIME(d.field_rfcd_date_value), \'%Y-%m\') <= :semester_'
+              . $semester . '_max', $args
+            );
+          }
+        }
+        $query->condition($condition_group);
+      }
+    }
+    if (isset($params['field_rfcd_status_value'])
+      && $params['field_rfcd_status_value'] != 'All'
+    ) {
+      $query->leftJoin('field_data_field_rfcd_status', 's', 'e.entityform_id = s.entity_id');
+      $query->condition('s.field_rfcd_status_value', $params['field_rfcd_status_value'], '=');
+    }
+    $uid = arg(3);
+    if ($uid && $uid > 0) {
+      $query->condition('e.uid', $uid);
+    }
+
+    if (isset($params['combine']) && $params['combine'] != '') {
+
+      $query->leftJoin('field_data_field_rfcd_name', 'field_data_field_rfcd_name', 'e.entityform_id = field_data_field_rfcd_name.entity_id');
+      $query->leftJoin('field_data_field_rfcd_school', 'field_data_field_rfcd_school', 'e.entityform_id = field_data_field_rfcd_school.entity_id');
+      $query->leftJoin('field_data_field_rfcd_provider', 'field_data_field_rfcd_provider', 'e.entityform_id = field_data_field_rfcd_provider.entity_id');
+      $query->leftJoin('users', 'users_field_data_field_rfcd_provider', 'field_data_field_rfcd_provider.field_rfcd_provider_target_id = users_field_data_field_rfcd_provider.uid');
+      $query->leftJoin('field_data_field_profile_name', 'users_field_data_field_rfcd_provider__field_data_field_profile_name', 'users_field_data_field_rfcd_provider.uid = users_field_data_field_rfcd_provider__field_data_field_profile_name.entity_id');
+      $query->leftJoin('field_data_field_rfcd_new_course_name', 'field_data_field_rfcd_new_course_name', 'e.entityform_id = field_data_field_rfcd_new_course_name.entity_id');
+      $query->leftJoin('field_data_field_rfcd_course', 'field_data_field_rfcd_course', 'e.entityform_id = field_data_field_rfcd_course.entity_id');
+      $query->leftJoin('node', 'node_field_data_field_rfcd_course', 'field_data_field_rfcd_course.field_rfcd_course_target_id = node_field_data_field_rfcd_course.nid');
+
+      $query->addExpression("CONCAT_WS(' ', e.entityform_id, ' ', field_data_field_rfcd_school.field_rfcd_school_value, ' ', field_data_field_rfcd_name.field_rfcd_name_value, ' ', field_data_field_rfcd_provider.field_rfcd_provider_target_id, ' ', field_data_field_rfcd_new_course_name.field_rfcd_new_course_name_value, ' ', field_data_field_rfcd_course.field_rfcd_course_target_id, ' ', users_field_data_field_rfcd_school__field_data_field_profile_name.field_profile_name_value, ' ', users_field_data_field_rfcd_provider__field_data_field_profile_name.field_profile_name_value, ' ', node_field_data_field_rfcd_course.title)", 'combined_fields');
+
+      $query->havingCondition(
+        'combined_fields', '%' . $params['combine'] . '%', 'LIKE'
+      );
+
+      $query->addField('ra', 'field_rfcd_requested_amount_value', 'requested_amount');
+      $query->addField('ga', 'field_rfcd_granted_amount_value', 'granted_amount');
+      $query->addField('sa', 'field_rfcd_spent_amount_value', 'spent_amount');
+
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $row) {
+        $requested_amount += floatval($row->requested_amount);
+        $granted_amount += floatval($row->granted_amount);
+        $spent_amount += floatval($row->spent_amount);
+      }
+
+    }
+    else {
+      $query->addExpression('SUM(field_rfcd_requested_amount_value)', 'requested_amount');
+      $query->addExpression('SUM(field_rfcd_granted_amount_value)', 'granted_amount');
+      $query->addExpression('SUM(field_rfcd_spent_amount_value)', 'spent_amount');
+      $result = $query->execute()->fetchAll();
+      $result = reset($result);
+      $requested_amount = $result->requested_amount;
+      $granted_amount = $result->granted_amount;
+      $spent_amount = $result->spent_amount;
+
+    }
+
+    $block['content'] .= '<p>Ansøgt sum: <b>'
+      . number_format($requested_amount, 2, ',', '.')
+      . ' kr.</b> - Bevilget sum: <b>'
+      . number_format($granted_amount, 2, ',', '.')
+      . ' kr.</b> - Forbrugt sum: <b>'
+      . number_format($spent_amount, 2, ',', '.') . 'kr.</b></p>';
+    return $block;
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * @param $view
+ * @param views_plugin_query_default $query
+ */
+function ulf_free_course_request_daycare_views_query_alter(&$view, &$query) {
+  if ($view->name == 'ulf_free_course_requests_daycare'
+    && ($view->current_display == 'free_course_requests_daycare_table'
+      || $view->current_display == 'free_course_requests_daycare_user')
+  ) {
+    //    kint($query);die;
+    $params = drupal_get_query_parameters();
+    if (isset($params['field_rfcd_date_value_2']['semester'])
+      && !empty($params['field_rfcd_date_value_2']['semester'])
+    ) {
+      $snippet = '';
+      $args = [];
+      foreach ($params['field_rfcd_date_value_2']['semester'] as $semester) {
+        $exp = explode('_', $semester);
+        if (count($exp) == 2) {
+          if ($snippet != '') {
+            $snippet .= ' OR ';
+          }
+          $snippet .= 'DATE_FORMAT(FROM_UNIXTIME(field_data_field_rfcd_date.field_rfcd_date_value), \'%Y-%m\') >= :semester_'
+            . $semester
+            . '_min AND DATE_FORMAT(FROM_UNIXTIME(field_data_field_rfcd_date.field_rfcd_date_value), \'%Y-%m\') <= :semester_'
+            . $semester . '_max';
+          if ($exp[1] == 1) {
+            $args[':semester_' . $semester . '_min'] = $exp[0] . '-01';
+            $args[':semester_' . $semester . '_max'] = $exp[0] . '-06';
+          }
+          else {
+            if ($exp[1] == 2) {
+              $args[':semester_' . $semester . '_min'] = $exp[0] . '-07';
+              $args[':semester_' . $semester . '_max'] = $exp[0] . '-12';
+            }
+          }
+        }
+      }
+      $group = $query->set_where_group();
+      $query->add_where_expression($group, $snippet, $args);
+      $query->ensure_table('field_data_field_rfcd_date');
+
+    }
+
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function ulf_free_course_request_daycare_views_pre_render(&$view) {
+  if ($view->name == 'ulf_free_course_requests_daycare') {
+    foreach ($view->result as $value) {
+      $time = $value->field_field_rfcd_date_1[0]['raw']['value'];
+      $year = date('Y', $time);
+      $month = date('m', $time);
+      if ($month < 7) {
+        $string = '2. halvår ' . ($year - 1) . '/' . $year;
+      }
+      else {
+        $string = '1. halvår ' . $year . '/' . ($year + 1);
+      }
+      $value->field_field_rfcd_date_1[0]['rendered']['#markup'] = $string;
+    }
+  }
+}
+
+/**
+ * Implements hook_entityform_access_alter().
+ */
+function ulf_free_course_request_daycare_entityform_access_alter(&$access, $op, $context) {
+  $account = $context['account'];
+  $entityform = $context['entityform'];
+  if (!$access && $op == 'edit' && isset($entityform->uid)
+    && $account->uid == $entityform->uid
+  ) {
+    $status = $entityform->field_rfcd_status[LANGUAGE_NONE][0]['value'];
+    if ($status == 'accepted' || $status == 'awaiting_payment') {
+      $access = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_user_profile().
+ */
+function ulf_free_course_request_daycare_preprocess_user_profile(&$variables) {
+  foreach ($variables['elements']['#account']->roles as $role) {
+    $filter = '![^abcdefghijklmnopqrstuvwxyz0-9-_]+!s';
+    $string_clean = preg_replace($filter, '-', drupal_strtolower($role));
+    $variables['theme_hook_suggestions'][] = 'user_profile__' . $string_clean;
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function ulf_free_course_request_daycare_theme_registry_alter(&$theme_registry) {
+  // Defined path to the current module.
+  $module_path = drupal_get_path('module', 'ulf_free_course_request_daycare');
+  // Find all .tpl.php files in this module's folder recursively.
+  $template_file_objects
+    = drupal_find_theme_templates($theme_registry, '.tpl.php', $module_path);
+  // Iterate through all found template file objects.
+  foreach ($template_file_objects as $key => $template_file_object) {
+    // If the template has not already been overridden by a theme.
+    if (!isset($theme_registry[$key]['theme path'])
+      || !preg_match('#/themes/#', $theme_registry[$key]['theme path'])
+    ) {
+      // Alter the theme path and template elements.
+      $theme_registry[$key]['theme path'] = $module_path;
+      $theme_registry[$key]
+        = array_merge($theme_registry[$key], $template_file_object);
+      $theme_registry[$key]['type'] = 'module';
+    }
+  }
+}
+
+/**
+ * Change the entiyform after it has been inserted into db.
+ * Also send mails.
+ *
+ * @param $entity
+ * @param $entity_type
+ */
+function ulf_free_course_request_daycare_entity_postinsert($entity, $entity_type) {
+  if ($entity_type == 'entityform') {
+    if ($entity->type == 'free_course_request_daycare') {
+      $wrapper = entity_metadata_wrapper($entity_type, $entity);
+      _rfcd_notify($wrapper, 'on_submit_user');
+      _rfcd_notify($wrapper, 'on_submit_admin');
+    }
+  }
+}
+
+
+/**
+ * Act after entiyform has been changed.
+ *
+ * @param $entity
+ * @param $entity_type
+ */
+function ulf_free_course_request_daycare_entity_postupdate($entity, $entity_type) {
+  // Ensure we are submitting an entityform from form view.
+  if ($entity_type == 'entityform' && arg(2) == 'edit') {
+    if ($entity->type == 'free_course_request_daycare') {
+      if ($entity->field_rfcd_send_mail[LANGUAGE_NONE][0]['value'] == TRUE) {
+        $wrapper = entity_metadata_wrapper($entity_type, $entity);
+        if ($entity->field_rfcd_status[LANGUAGE_NONE][0]['value']
+          == 'accepted'
+        ) {
+          _rfcd_notify($wrapper, 'on_change_accepted');
+        }
+        if ($entity->field_rfcd_status[LANGUAGE_NONE][0]['value'] == 'refused') {
+          _rfcd_notify($wrapper, 'on_change_refused');
+        }
+      }
+      // Log the user that changed the entity
+      global $user;
+      $wrapper->field_rfcd_latest_editor = $user->uid;
+      $wrapper->save();
+      if (!in_array('editor', $user->roles)) {
+        drupal_goto('admin/udgiftsdaekning/ansoegninger/dagtilbud/' . $user->uid);
+      }
+      else {
+        drupal_goto('admin/config/system/free_course_request_daycare');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function ulf_free_course_request_daycare_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+
+  if ($root_path == 'entityform/%/edit') {
+    global $user;
+    if (in_array('skole', $user->roles)) {
+      $data['tabs'][0]['output'] = [];
+      $data['tabs'][0]['count'] = 0;
+    }
+  }
+}
