@@ -58,7 +58,6 @@ function ulf_free_course_request_daycare_cron() {
       $result = $query->execute()->fetchAllKeyed(0, 0);
 
       foreach (entityform_load_multiple($result) as $course_request) {
-        parseFormDataDaycare($course_request);
 
         $params = [];
         $wrapper = $course_request->wrapper();
@@ -85,7 +84,7 @@ function ulf_free_course_request_daycare_cron() {
   }
 }
 
-function parseFormDataDaycare(&$form_data) {
+function parseFormDataDaycare($form_data) {
   $form = clone $form_data;
   $form->field_rfc_date[LANGUAGE_NONE][0]['value'] = format_date($form_data->field_rfc_date[LANGUAGE_NONE][0]['value'], 'custom', 'j. F Y');
   return $form;
