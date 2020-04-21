@@ -42,7 +42,6 @@ function ulf_free_course_request_daycare_menu() {
 function ulf_free_course_request_daycare_cron() {
   global $language;
 
-
   if (variable_get('enable_free_course_daycare_follow_up_mails', FALSE)) {
     if (date('G') > 8) {
       $from = strtotime('yesterday 00:00 Europe/Copenhagen');
@@ -68,7 +67,7 @@ function ulf_free_course_request_daycare_cron() {
 
         $params['user'] = $provider;
         $params['node'] = $course;
-        $params['entityform'] = $course_request;
+        $params['entityform'] = parseFormDataDaycare($course_request);
 
         $to = $wrapper->field_rfcd_mail->value();
         if (drupal_mail('ulf_free_course_request', 'free_course_request_daycare_follow_up_mail', $to, $language, $params)) {
@@ -87,7 +86,9 @@ function ulf_free_course_request_daycare_cron() {
 }
 
 function parseFormDataDaycare(&$form_data) {
-  $form_data->field_rfcd_date[LANGUAGE_NONE][0]['value'] = format_date($form_data->field_rfcd_date[LANGUAGE_NONE][0]['value'], 'custom', 'j. F Y');
+  $form = clone $form_data;
+  $form->field_rfc_date[LANGUAGE_NONE][0]['value'] = format_date($form_data->field_rfc_date[LANGUAGE_NONE][0]['value'], 'custom', 'j. F Y');
+  return $form;
 }
 
 /**
