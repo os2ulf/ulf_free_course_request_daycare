@@ -333,7 +333,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
     ),
     'entity_type' => 'entityform',
     'field_name' => 'field_rfcd_grade',
-    'label' => 'Gluppe',
+    'label' => 'Gruppe',
     'required' => 1,
     'settings' => array(
       'text_processing' => 0,
@@ -1013,7 +1013,7 @@ Mail sendes dog kun hvis status er godkendt eller afvist.',
   t('Forløb');
   t('Forløb findes ikke på listen');
   t('Forløbets navn');
-  t('Gluppe');
+  t('Gruppe');
   t('Institution');
   t('Ja, det er forstået');
   t('Jeg giver samtykke');
