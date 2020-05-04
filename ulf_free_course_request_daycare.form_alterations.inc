@@ -515,7 +515,7 @@ function _rfcd_request_form_submit_payment_details($form, &$form_state) {
  */
 function _rfcd_get_courses($uid, $current_options) {
   // Set target group pre school and middle school.
-  $term_ids = array('148');
+  $term_ids = array('147');
 
   // Get courses.
   $query = new EntityFieldQuery;
@@ -546,7 +546,7 @@ function _rfcd_get_courses($uid, $current_options) {
 }
 
 /**
- * Get all middle school courses by user.
+ * Get all daycare courses by user.
  *
  * @return array
  */
@@ -554,7 +554,7 @@ function _rfcd_get_hacked_course_options($user, $target_id) {
   $options = [];
   $query = db_select('node', 'n');
   $query->condition('n.type', 'course', '=');
-  if (!in_array('editor', $user->roles) && in_array('skole', $user->roles)) {
+  if (!in_array('editor', $user->roles)) {
     $query->condition('n.nid', $target_id, '=');
   }
   $query->fields('n', ['nid', 'title']);
@@ -562,6 +562,7 @@ function _rfcd_get_hacked_course_options($user, $target_id) {
   foreach ($result as $record) {
     $options[$record->nid] = $record->title;
   }
+
   return $options;
 }
 

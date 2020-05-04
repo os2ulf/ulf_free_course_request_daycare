@@ -39,7 +39,6 @@ function ulf_free_course_request_daycare_secure_permissions($role) {
       'view any entityform',
       'edit any entityform',
       'delete any entityform',
-      'assign skole role',
       'administer ulf free course request daycare settings',
     ),
   );
