@@ -16,6 +16,7 @@ dependencies[] = file
 dependencies[] = hook_post_action
 dependencies[] = html5_tools
 dependencies[] = list
+dependencies[] = menu
 dependencies[] = number
 dependencies[] = options
 dependencies[] = strongarm

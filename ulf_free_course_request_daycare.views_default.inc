@@ -484,7 +484,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     'bypass_access' => 0,
     'link' => 0,
   );
-  /* Felt: Entityform Submission: Klasse */
+  /* Felt: Entityform Submission: Gruppe */
   $handler->display->display_options['fields']['field_rfcd_grade']['id'] = 'field_rfcd_grade';
   $handler->display->display_options['fields']['field_rfcd_grade']['table'] = 'field_data_field_rfcd_grade';
   $handler->display->display_options['fields']['field_rfcd_grade']['field'] = 'field_rfcd_grade';
@@ -707,7 +707,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     'bypass_access' => 0,
     'link' => 0,
   );
-  /* Felt: Entityform Submission: Klasse */
+  /* Felt: Entityform Submission: Gruppe */
   $handler->display->display_options['fields']['field_rfcd_grade']['id'] = 'field_rfcd_grade';
   $handler->display->display_options['fields']['field_rfcd_grade']['table'] = 'field_data_field_rfcd_grade';
   $handler->display->display_options['fields']['field_rfcd_grade']['field'] = 'field_rfcd_grade';
@@ -985,7 +985,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     'bypass_access' => 0,
     'link' => 0,
   );
-  /* Felt: Entityform Submission: Klasse */
+  /* Felt: Entityform Submission: Gruppe */
   $handler->display->display_options['fields']['field_rfcd_grade']['id'] = 'field_rfcd_grade';
   $handler->display->display_options['fields']['field_rfcd_grade']['table'] = 'field_data_field_rfcd_grade';
   $handler->display->display_options['fields']['field_rfcd_grade']['field'] = 'field_rfcd_grade';
@@ -1165,7 +1165,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('ID'),
     t('.'),
     t('Institution'),
-    t('Klasse'),
+    t('Gruppe'),
     t('Navn'),
     t('Udbyder navn'),
     t('Udbyder'),
@@ -1248,7 +1248,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filterkriterie: Indhold: Published status */
+  /* Filterkriterie: Indhold: Publiceringsstatus */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1356,7 +1356,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
-  /* Filterkriterie: Bruger: Active status */
+  /* Filterkriterie: Bruger: Aktuel status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1388,7 +1388,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filterkriterie: Bruger: Active status */
+  /* Filterkriterie: Bruger: Aktuel status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1420,7 +1420,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filterkriterie: Bruger: Active status */
+  /* Filterkriterie: Bruger: Aktuel status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';

@@ -321,7 +321,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
     'bundle' => 'free_course_request_daycare',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Skriv hvilken klasse, der deltager i forløbet - sådan her: 7.B eller 7.ABC)',
+    'description' => 'Skriv hvilken gruppe, der deltager i forløbet - Humlebierne, Dueslaget, Rød Stue etc.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -333,7 +333,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
     ),
     'entity_type' => 'entityform',
     'field_name' => 'field_rfcd_grade',
-    'label' => 'Klasse',
+    'label' => 'Gruppe',
     'required' => 1,
     'settings' => array(
       'text_processing' => 0,
@@ -778,7 +778,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
     'bundle' => 'free_course_request_daycare',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Skriv forløbets totale pris i hele tal - eks. \'400\'. Det er den pris, der er aftalt med udbyderen af forløbet og som ULF i Aarhus skal betale totalt. Hvis du ansøger for flere klasser, så skriv den samlede pris for alle forløb.',
+    'description' => 'Skriv forløbets totale pris i hele tal - eks. \'400\'. Det er den pris, der er aftalt med udbyderen af forløbet og som ULF i Aarhus skal betale totalt.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1013,10 +1013,10 @@ Mail sendes dog kun hvis status er godkendt eller afvist.',
   t('Forløb');
   t('Forløb findes ikke på listen');
   t('Forløbets navn');
+  t('Gruppe');
   t('Institution');
   t('Ja, det er forstået');
   t('Jeg giver samtykke');
-  t('Klasse');
   t('Mailadresse');
   t('Navn');
   t('Opfølgningsmail sendt');
@@ -1025,8 +1025,8 @@ Mail sendes dog kun hvis status er godkendt eller afvist.');
   t('Send mail ved gem');
   t('Sendte mails');
   t('Senest ændret af');
-  t('Skriv forløbets totale pris i hele tal - eks. \'400\'. Det er den pris, der er aftalt med udbyderen af forløbet og som ULF i Aarhus skal betale totalt. Hvis du ansøger for flere klasser, så skriv den samlede pris for alle forløb.');
-  t('Skriv hvilken klasse, der deltager i forløbet - sådan her: 7.B eller 7.ABC)');
+  t('Skriv forløbets totale pris i hele tal - eks. \'400\'. Det er den pris, der er aftalt med udbyderen af forløbet og som ULF i Aarhus skal betale totalt.');
+  t('Skriv hvilken gruppe, der deltager i forløbet - Humlebierne, Dueslaget, Rød Stue etc.');
   t('Status');
   t('Telefonnr');
   t('Udbetalingsdato');
