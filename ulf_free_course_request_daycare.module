@@ -335,7 +335,7 @@ function ulf_free_course_request_daycare_entityform_access_alter(&$access, $op, 
   if (!$access && $op == 'edit' && isset($entityform->uid)
     && $account->uid == $entityform->uid
   ) {
-    $status = $entityform->field_rfcd_status[LANGUAGE_NONE][0]['value'];
+    $status = $entityform->field_rfcd_status[LANGUAGE_NONE][0]['value'] ?? NULL;
     if ($status == 'accepted' || $status == 'awaiting_payment') {
       $access = TRUE;
     }
