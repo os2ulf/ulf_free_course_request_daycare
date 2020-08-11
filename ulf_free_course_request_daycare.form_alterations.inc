@@ -488,7 +488,6 @@ function _rfcd_request_form_submit_handle_status_change($form, &$form_state) {
     //if status is being changed to "payment_completed" set payment date
     form_set_value($form['field_rfcd_payment_date'], [LANGUAGE_NONE => [['value' => time()]]], $form_state);
   }
-
 }
 
 /**
@@ -498,9 +497,7 @@ function _rfcd_request_form_submit_handle_status_change($form, &$form_state) {
  * @param $form_state
  */
 function _rfcd_request_form_submit_payment_details($form, &$form_state) {
-
   form_set_value($form['field_rfcd_status'], [LANGUAGE_NONE => [['value' => 'awaiting_payment']]], $form_state);
-
 }
 
 
@@ -514,6 +511,11 @@ function _rfcd_request_form_submit_payment_details($form, &$form_state) {
  * @return mixed
  */
 function _rfcd_get_courses($uid, $current_options) {
+
+  if ($uid === '_none') {
+    return $current_options;
+  }
+
   // Set target group pre school and middle school.
   $term_ids = array('147');
 
@@ -526,8 +528,9 @@ function _rfcd_get_courses($uid, $current_options) {
     ->propertyCondition('uid', $uid)
     ->fieldCondition('field_target_group', 'tid', $term_ids, 'IN')
     ->execute();
+
   if(empty($result['node'])) {
-    return $current_options;
+    return ['_none' => t('No courses found')];
   }
 
   $nids = array_keys($result['node']);
