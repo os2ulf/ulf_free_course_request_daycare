@@ -530,7 +530,7 @@ function _rfcd_get_courses($uid, $current_options) {
     ->execute();
 
   if(empty($result['node'])) {
-    return ['_none' => t('No courses found')];
+    return ['_none' => t('Ingen kurser fundet')];
   }
 
   $nids = array_keys($result['node']);
