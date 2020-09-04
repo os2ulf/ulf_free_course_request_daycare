@@ -656,6 +656,11 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['title']['relationship'] = 'field_rfcd_course_target_id';
   $handler->display->display_options['fields']['title']['exclude'] = TRUE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Felt: Entityform Submission: Forløb findes ikke på listen */
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['id'] = 'field_rfcd_course_not_found';
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['table'] = 'field_data_field_rfcd_course_not_found';
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['field'] = 'field_rfcd_course_not_found';
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['exclude'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'admin/config/system/free_course_request_daycare';
   $handler->display->display_options['menu']['type'] = 'normal';
@@ -850,6 +855,11 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['edit_entityform']['label'] = 'Handlinger';
   $handler->display->display_options['fields']['edit_entityform']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_entityform']['text'] = 'Rediger';
+  /* Felt: Entityform Submission: Forløb findes ikke på listen */
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['id'] = 'field_rfcd_course_not_found';
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['table'] = 'field_data_field_rfcd_course_not_found';
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['field'] = 'field_rfcd_course_not_found';
+  $handler->display->display_options['fields']['field_rfcd_course_not_found']['exclude'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
@@ -1196,6 +1206,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('Sendte mails'),
     t('Skole'),
     t('Titel'),
+    t('Forløb findes ikke på listen'),
     t('User applications'),
     t('Skolens ansøgninger'),
     t('CVR'),
