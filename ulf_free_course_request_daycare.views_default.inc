@@ -635,14 +635,14 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['edit_entityform']['field'] = 'edit_entityform';
   $handler->display->display_options['fields']['edit_entityform']['label'] = '';
   $handler->display->display_options['fields']['edit_entityform']['element_label_colon'] = FALSE;
-  /* Felt: User: Navn */
+  /* Felt: Bruger: Navn */
   $handler->display->display_options['fields']['field_profile_name']['id'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['field'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['relationship'] = 'field_rfcd_school_target_id';
   $handler->display->display_options['fields']['field_profile_name']['label'] = 'Skole';
   $handler->display->display_options['fields']['field_profile_name']['exclude'] = TRUE;
-  /* Felt: User: Navn */
+  /* Felt: Bruger: Navn */
   $handler->display->display_options['fields']['field_profile_name_1']['id'] = 'field_profile_name_1';
   $handler->display->display_options['fields']['field_profile_name_1']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name_1']['field'] = 'field_profile_name';
@@ -706,6 +706,15 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['field_rfcd_provider']['settings'] = array(
     'bypass_access' => 0,
     'link' => 0,
+  );
+  /* Felt: Bruger: CVR */
+  $handler->display->display_options['fields']['field_profile_cvr']['id'] = 'field_profile_cvr';
+  $handler->display->display_options['fields']['field_profile_cvr']['table'] = 'field_data_field_profile_cvr';
+  $handler->display->display_options['fields']['field_profile_cvr']['field'] = 'field_profile_cvr';
+  $handler->display->display_options['fields']['field_profile_cvr']['relationship'] = 'field_rfcd_provider_target_id';
+  $handler->display->display_options['fields']['field_profile_cvr']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 1,
   );
   /* Felt: Entityform Submission: Gruppe */
   $handler->display->display_options['fields']['field_rfcd_grade']['id'] = 'field_rfcd_grade';
@@ -820,7 +829,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['field_rfcd_remarks']['id'] = 'field_rfcd_remarks';
   $handler->display->display_options['fields']['field_rfcd_remarks']['table'] = 'field_data_field_rfcd_remarks';
   $handler->display->display_options['fields']['field_rfcd_remarks']['field'] = 'field_rfcd_remarks';
-  /* Felt: User: Navn */
+  /* Felt: Bruger: Navn */
   $handler->display->display_options['fields']['field_profile_name']['id'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['field'] = 'field_profile_name';
@@ -1144,8 +1153,8 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('næste ›'),
     t('sidste »'),
     t('field_rfcd_school_target_id'),
-    t('User entity refereret fra field_rfcd_provider'),
-    t('Node entity refereret fra field_rfcd_course'),
+    t('Bruger entity refereret fra field_rfcd_provider'),
+    t('Indhold entity refereret fra field_rfcd_course'),
     t('forfatter'),
     t('- Vælg en handling -'),
     t('Delete Submissions'),
@@ -1189,6 +1198,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('Titel'),
     t('User applications'),
     t('Skolens ansøgninger'),
+    t('CVR'),
     t('Handlinger'),
     t('Rediger'),
     t('Søg på person, forløb, udbyder eller id'),
@@ -1248,7 +1258,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filterkriterie: Indhold: Publiceringsstatus */
+  /* Filterkriterie: Indhold: Published status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1262,7 +1272,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'course' => 'course',
   );
-  /* Filterkriterie: Node: Overordnet målgruppe (field_target_group) */
+  /* Filterkriterie: Indhold: Overordnet målgruppe (field_target_group) */
   $handler->display->display_options['filters']['field_target_group_tid']['id'] = 'field_target_group_tid';
   $handler->display->display_options['filters']['field_target_group_tid']['table'] = 'field_data_field_target_group';
   $handler->display->display_options['filters']['field_target_group_tid']['field'] = 'field_target_group_tid';
@@ -1346,7 +1356,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     ),
   );
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Felt: User: Navn */
+  /* Felt: Bruger: Navn */
   $handler->display->display_options['fields']['field_profile_name']['id'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['field'] = 'field_profile_name';
@@ -1356,7 +1366,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
-  /* Filterkriterie: Bruger: Aktuel status */
+  /* Filterkriterie: Bruger: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1388,7 +1398,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filterkriterie: Bruger: Aktuel status */
+  /* Filterkriterie: Bruger: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1420,7 +1430,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filterkriterie: Bruger: Aktuel status */
+  /* Filterkriterie: Bruger: Active status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
