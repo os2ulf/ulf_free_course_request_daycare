@@ -268,7 +268,7 @@ function _rfcd_build_mail_followup(EntityMetadataWrapper $wrapper) {
   $application .= '<strong>';
   $application .= t('Email', array(), $translation_lang);
   $application .= ':</strong> ';
-  $application .= $wrapper->field_rfcd_mail->value();
+  $application .= _reverseMailEncrypt($wrapper->field_rfcd_mail->value());
   $application .= '</p>';
 
   $application .= '<p>';

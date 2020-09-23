@@ -199,7 +199,7 @@ function ulf_free_course_request_daycare_block_view($delta = '') {
       && $params['field_rfcd_status_value'] != 'All'
     ) {
       $query->leftJoin('field_data_field_rfcd_status', 's', 'e.entityform_id = s.entity_id');
-      $query->condition('s.field_rfcd_status_value', $params['field_rfcd_status_value'], '=');
+      $query->condition('s.field_rfcd_status_value', $params['field_rfcd_status_value'], 'IN');
     }
     $uid = arg(3);
     if ($uid && $uid > 0) {
