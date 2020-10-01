@@ -250,6 +250,14 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
     $form['field_rfcd_provider_name']['#access'] = false;
     array_unshift($form['actions']['submit']['#submit'],'_rfcd_request_form_submit');
   }
+
+  if (isset($_GET['course']) && is_numeric($_GET['course'])) {
+    $course = node_load($_GET['course']);
+    if ($course !== NULL) {
+      $form['field_rfcd_provider'][LANGUAGE_NONE]['#default_value'] = $course->uid;
+      $form['field_rfcd_course'][LANGUAGE_NONE]['#default_value'] = $course->nid;
+    }
+  }
 }
 
 /**
