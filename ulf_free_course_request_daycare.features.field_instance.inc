@@ -275,7 +275,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 37,
+      'weight' => 8,
     ),
   );
 
@@ -463,7 +463,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
       'module' => 'html5_tools',
       'settings' => array(),
       'type' => 'emailwidget',
-      'weight' => 42,
+      'weight' => 43,
     ),
   );
 
@@ -537,7 +537,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 40,
+      'weight' => 41,
     ),
   );
 
@@ -658,7 +658,7 @@ function ulf_free_course_request_daycare_field_default_field_instances() {
       'module' => 'html5_tools',
       'settings' => array(),
       'type' => 'telwidget',
-      'weight' => 41,
+      'weight' => 42,
     ),
   );
 
