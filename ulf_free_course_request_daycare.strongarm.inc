@@ -45,7 +45,7 @@ function ulf_free_course_request_daycare_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'redirect' => array(
-          'weight' => '7',
+          'weight' => '6',
         ),
       ),
       'display' => array(),
