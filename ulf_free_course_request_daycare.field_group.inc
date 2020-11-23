@@ -22,7 +22,7 @@ function ulf_free_course_request_daycare_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Databeskyttelse',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_rfcd_gdpr',
     ),
@@ -51,16 +51,16 @@ function ulf_free_course_request_daycare_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Forløb',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_rfcd_course',
-      1 => 'field_rfcd_date',
-      2 => 'field_rfcd_new_course_name',
-      3 => 'field_rfcd_provider',
-      4 => 'field_rfcd_provider_name',
-      5 => 'field_rfcd_requested_amount',
-      6 => 'field_rfcd_subject',
-      7 => 'field_rfcd_course_not_found',
+      1 => 'field_rfcd_course_not_found',
+      2 => 'field_rfcd_date',
+      3 => 'field_rfcd_new_course_name',
+      4 => 'field_rfcd_provider',
+      5 => 'field_rfcd_provider_name',
+      6 => 'field_rfcd_requested_amount',
+      7 => 'field_rfcd_subject',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -121,7 +121,7 @@ function ulf_free_course_request_daycare_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Udbetaling',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_rfcd_attachment',
       1 => 'field_rfcd_payment_date',
@@ -159,6 +159,7 @@ function ulf_free_course_request_daycare_field_group_info() {
       2 => 'field_rfcd_name',
       3 => 'field_rfcd_phone',
       4 => 'field_rfcd_school',
+      5 => 'field_receiving_class',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -185,7 +186,7 @@ function ulf_free_course_request_daycare_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Det med småt',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_rfcd_conditions',
     ),
