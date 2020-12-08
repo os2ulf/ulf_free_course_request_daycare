@@ -195,11 +195,10 @@ function ulf_free_course_request_daycare_block_view($delta = '') {
         $query->condition($condition_group);
       }
     }
-    if (isset($params['field_rfcd_status_value'])
-      && $params['field_rfcd_status_value'] != 'All'
-    ) {
+    if (isset($params['field_rfcd_status_value']) && $params['field_rfcd_status_value'] != 'All') {
+      $status = is_array($params['field_rfcd_status_value']) ? $params['field_rfcd_status_value'] : [$params['field_rfcd_status_value']];
       $query->leftJoin('field_data_field_rfcd_status', 's', 'e.entityform_id = s.entity_id');
-      $query->condition('s.field_rfcd_status_value', $params['field_rfcd_status_value'], 'IN');
+      $query->condition('s.field_rfcd_status_value', $status, 'IN');
     }
     $uid = arg(3);
     if ($uid && $uid > 0) {
