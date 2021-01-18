@@ -419,21 +419,21 @@ function ulf_free_course_request_daycare_views_default_views() {
   );
   $handler->display->display_options['filters']['field_rfcd_date_value_1']['form_type'] = 'date_popup';
   /* Filterkriterie: Entityform Submission: Afviklingsdato (field_rfcd_date) */
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['id'] = 'field_rfcd_date_value_2';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['table'] = 'field_data_field_rfcd_date';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['field'] = 'field_rfcd_date_value';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['group'] = 3;
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator_id'] = 'field_rfcd_date_value_2_op';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['label'] = 'Semester';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator'] = 'field_rfcd_date_value_2_op';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['identifier'] = 'field_rfcd_date_value_2';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['remember_roles'] = array(
-    2 => '2',
-  );
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['granularity'] = 'month';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['form_type'] = 'date_text';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['id'] = 'field_rfcd_date_value_2';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['table'] = 'field_data_field_rfcd_date';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['field'] = 'field_rfcd_date_value';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['operator'] = 'between';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['group'] = 3;
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['exposed'] = TRUE;
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator_id'] = 'field_rfcd_date_value_2_op';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['label'] = 'Semester';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator'] = 'field_rfcd_date_value_2_op';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['identifier'] = 'field_rfcd_date_value_2';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['remember_roles'] = array(
+//    2 => '2',
+//  );
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['granularity'] = 'month';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['form_type'] = 'date_text';
 
   /* Display: All applications */
   $handler = $view->new_display('page', 'All applications', 'free_course_requests_daycare_table');
@@ -1020,21 +1020,21 @@ function ulf_free_course_request_daycare_views_default_views() {
   );
   $handler->display->display_options['filters']['field_rfcd_date_value_1']['form_type'] = 'date_popup';
   /* Filterkriterie: Entityform Submission: Afviklingsdato (field_rfcd_date) */
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['id'] = 'field_rfcd_date_value_2';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['table'] = 'field_data_field_rfcd_date';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['field'] = 'field_rfcd_date_value';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['group'] = 3;
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator_id'] = 'field_rfcd_date_value_2_op';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['label'] = 'Semester';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator'] = 'field_rfcd_date_value_2_op';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['identifier'] = 'field_rfcd_date_value_2';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['remember_roles'] = array(
-    2 => '2',
-  );
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['granularity'] = 'month';
-  $handler->display->display_options['filters']['field_rfcd_date_value_2']['form_type'] = 'date_text';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['id'] = 'field_rfcd_date_value_2';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['table'] = 'field_data_field_rfcd_date';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['field'] = 'field_rfcd_date_value';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['operator'] = 'between';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['group'] = 3;
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['exposed'] = TRUE;
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator_id'] = 'field_rfcd_date_value_2_op';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['label'] = 'Semester';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['operator'] = 'field_rfcd_date_value_2_op';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['identifier'] = 'field_rfcd_date_value_2';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['expose']['remember_roles'] = array(
+//    2 => '2',
+//  );
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['granularity'] = 'month';
+//  $handler->display->display_options['filters']['field_rfcd_date_value_2']['form_type'] = 'date_text';
   $handler->display->display_options['path'] = 'admin/udgiftsdaekning/dagtilbud/ansoegninger';
   $handler->display->display_options['menu']['title'] = 'Financing requests';
   $handler->display->display_options['menu']['description'] = 'Financing requests';

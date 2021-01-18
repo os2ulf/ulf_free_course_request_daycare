@@ -293,14 +293,14 @@ function ulf_free_course_request_daycare_form_views_exposed_form_alter(&$form, $
       }
     }
 
-    $form['field_rfcd_date_value_2']['semester'] = [
-//      '#type' => 'checkboxes',
-      '#type' => 'select',
-      '#multiple' => true,
-      '#options' => $options,
-    ];
-    $form['field_rfcd_dated_value_2']['min']['#disabled'] = true;
-    $form['field_rfcd_dated_value_2']['max']['#disabled'] = true;
+//    $form['field_rfcd_date_value_2']['semester'] = [
+////      '#type' => 'checkboxes',
+//      '#type' => 'select',
+//      '#multiple' => true,
+//      '#options' => $options,
+//    ];
+//    $form['field_rfcd_dated_value_2']['min']['#disabled'] = true;
+//    $form['field_rfcd_dated_value_2']['max']['#disabled'] = true;
   }
 
 }
