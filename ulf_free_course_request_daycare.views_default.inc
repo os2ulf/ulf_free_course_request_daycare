@@ -757,6 +757,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['filters']['combine_1']['id'] = 'combine_1';
   $handler->display->display_options['filters']['combine_1']['table'] = 'views';
   $handler->display->display_options['filters']['combine_1']['field'] = 'combine';
+  $handler->display->display_options['filters']['combine_1']['operator'] = 'contains';
   $handler->display->display_options['filters']['combine_1']['group'] = 1;
   $handler->display->display_options['filters']['combine_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['combine_1']['expose']['operator_id'] = 'combine_1_op';
