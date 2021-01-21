@@ -687,14 +687,14 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['edit_entityform']['field'] = 'edit_entityform';
   $handler->display->display_options['fields']['edit_entityform']['label'] = '';
   $handler->display->display_options['fields']['edit_entityform']['element_label_colon'] = FALSE;
-  /* Field: Bruger: Navn */
+  /* Field: User: Navn */
   $handler->display->display_options['fields']['field_profile_name']['id'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['field'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['relationship'] = 'field_rfcd_school_target_id';
   $handler->display->display_options['fields']['field_profile_name']['label'] = 'Skole';
   $handler->display->display_options['fields']['field_profile_name']['exclude'] = TRUE;
-  /* Field: Bruger: Navn */
+  /* Field: User: Navn */
   $handler->display->display_options['fields']['field_profile_name_1']['id'] = 'field_profile_name_1';
   $handler->display->display_options['fields']['field_profile_name_1']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name_1']['field'] = 'field_profile_name';
@@ -753,6 +753,32 @@ function ulf_free_course_request_daycare_views_default_views() {
     'free_course_request_daycare' => 'free_course_request_daycare',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Global: Combine fields filter */
+  $handler->display->display_options['filters']['combine_1']['id'] = 'combine_1';
+  $handler->display->display_options['filters']['combine_1']['table'] = 'views';
+  $handler->display->display_options['filters']['combine_1']['field'] = 'combine';
+  $handler->display->display_options['filters']['combine_1']['group'] = 1;
+  $handler->display->display_options['filters']['combine_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['combine_1']['expose']['operator_id'] = 'combine_1_op';
+  $handler->display->display_options['filters']['combine_1']['expose']['label'] = 'Søg på inst, grup, pers, forløb, udbyd eller id';
+  $handler->display->display_options['filters']['combine_1']['expose']['operator'] = 'combine_1_op';
+  $handler->display->display_options['filters']['combine_1']['expose']['identifier'] = 'combine_1';
+  $handler->display->display_options['filters']['combine_1']['expose']['remember_roles'] = array(
+    2 => '2',
+  );
+  $handler->display->display_options['filters']['combine_1']['fields'] = array(
+    'entityform_id' => 'entityform_id',
+    'field_rfcd_school' => 'field_rfcd_school',
+    'field_rfcd_grade' => 'field_rfcd_grade',
+    'field_rfcd_name' => 'field_rfcd_name',
+    'field_rfcd_provider_name' => 'field_rfcd_provider_name',
+    'field_rfcd_provider' => 'field_rfcd_provider',
+    'field_rfcd_new_course_name' => 'field_rfcd_new_course_name',
+    'field_rfcd_course' => 'field_rfcd_course',
+    'field_profile_name' => 'field_profile_name',
+    'field_profile_name_1' => 'field_profile_name_1',
+    'title' => 'title',
+  );
   /* Filter criterion: Entityform Submission: Status (field_rfcd_status) */
   $handler->display->display_options['filters']['field_rfcd_status_value']['id'] = 'field_rfcd_status_value';
   $handler->display->display_options['filters']['field_rfcd_status_value']['table'] = 'field_data_field_rfcd_status';
@@ -765,6 +791,19 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['filters']['field_rfcd_status_value']['expose']['identifier'] = 'field_rfcd_status_value';
   $handler->display->display_options['filters']['field_rfcd_status_value']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_rfcd_status_value']['expose']['remember_roles'] = array(
+    2 => '2',
+  );
+  /* Filter criterion: Entityform Submission: Forløb (field_rfcd_course) */
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['id'] = 'field_rfcd_course_target_id';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['table'] = 'field_data_field_rfcd_course';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['field'] = 'field_rfcd_course_target_id';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['operator_id'] = 'field_rfcd_course_target_id_op';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['label'] = 'Forløb';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['operator'] = 'field_rfcd_course_target_id_op';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['identifier'] = 'field_rfcd_course_target_id';
+  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['remember_roles'] = array(
     2 => '2',
   );
   /* Filter criterion: Entityform Submission: Institution (field_rfcd_school) */
@@ -821,20 +860,6 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['filters']['field_rfcd_provider_name_value']['expose']['operator'] = 'field_rfcd_provider_name_value_op';
   $handler->display->display_options['filters']['field_rfcd_provider_name_value']['expose']['identifier'] = 'field_rfcd_provider_name_value';
   $handler->display->display_options['filters']['field_rfcd_provider_name_value']['expose']['remember_roles'] = array(
-    2 => '2',
-  );
-  /* Filter criterion: Entityform Submission: Forløbets navn (field_rfcd_new_course_name) */
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['id'] = 'field_rfcd_new_course_name_value';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['table'] = 'field_data_field_rfcd_new_course_name';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['field'] = 'field_rfcd_new_course_name_value';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['group'] = 3;
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['expose']['operator_id'] = 'field_rfcd_new_course_name_value_op';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['expose']['label'] = 'Forløb';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['expose']['operator'] = 'field_rfcd_new_course_name_value_op';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['expose']['identifier'] = 'field_rfcd_new_course_name_value';
-  $handler->display->display_options['filters']['field_rfcd_new_course_name_value']['expose']['remember_roles'] = array(
     2 => '2',
   );
   /* Filter criterion: Entityform Submission: Afviklingsdato (field_rfcd_date) */
@@ -925,7 +950,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     'bypass_access' => 0,
     'link' => 0,
   );
-  /* Field: Bruger: CVR */
+  /* Field: User: CVR */
   $handler->display->display_options['fields']['field_profile_cvr']['id'] = 'field_profile_cvr';
   $handler->display->display_options['fields']['field_profile_cvr']['table'] = 'field_data_field_profile_cvr';
   $handler->display->display_options['fields']['field_profile_cvr']['field'] = 'field_profile_cvr';
@@ -1047,7 +1072,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['field_rfcd_remarks']['id'] = 'field_rfcd_remarks';
   $handler->display->display_options['fields']['field_rfcd_remarks']['table'] = 'field_data_field_rfcd_remarks';
   $handler->display->display_options['fields']['field_rfcd_remarks']['field'] = 'field_rfcd_remarks';
-  /* Field: Bruger: Navn */
+  /* Field: User: Navn */
   $handler->display->display_options['fields']['field_profile_name']['id'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['field'] = 'field_profile_name';
@@ -1376,8 +1401,8 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('næste ›'),
     t('sidste »'),
     t('field_rfcd_school_target_id'),
-    t('Bruger entity referenced from field_rfcd_provider'),
-    t('Indholdselement entity referenced from field_rfcd_course'),
+    t('User entity referenced from field_rfcd_provider'),
+    t('Content entity referenced from field_rfcd_course'),
     t('forfatter'),
     t('- Choose an operation -'),
     t('Delete Submissions'),
@@ -1420,6 +1445,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('Skole'),
     t('Title'),
     t('Forløb findes ikke på listen'),
+    t('Søg på inst, grup, pers, forløb, udbyd eller id'),
     t('User applications'),
     t('Skolens ansøgninger'),
     t('CVR'),
@@ -1497,7 +1523,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'course' => 'course',
   );
-  /* Filter criterion: Indholdselement: Overordnet målgruppe (field_target_group) */
+  /* Filter criterion: Content: Overordnet målgruppe (field_target_group) */
   $handler->display->display_options['filters']['field_target_group_tid']['id'] = 'field_target_group_tid';
   $handler->display->display_options['filters']['field_target_group_tid']['table'] = 'field_data_field_target_group';
   $handler->display->display_options['filters']['field_target_group_tid']['field'] = 'field_target_group_tid';
@@ -1582,7 +1608,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     ),
   );
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Bruger: Navn */
+  /* Field: User: Navn */
   $handler->display->display_options['fields']['field_profile_name']['id'] = 'field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['table'] = 'field_data_field_profile_name';
   $handler->display->display_options['fields']['field_profile_name']['field'] = 'field_profile_name';
