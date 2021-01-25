@@ -264,28 +264,6 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
  * Implements hook_form_FORMID_alter().
  */
 function ulf_free_course_request_daycare_form_views_exposed_form_alter(&$form, $form_state) {
-  if ($form['#id'] == 'views-exposed-form-ulf-free-course-requests-daycare-free-course-requests-daycare-table' || $form['#id'] == 'views-exposed-form-ulf-free-course-requests-daycare-free-course-requests-daycare-user') {
-    $form['#attached']['css'][] = drupal_get_path('module', 'ulf_free_course_request_daycare') . '/css/styling.css';
-
-    // Find the course names for request_daycare courses, to display in a
-    // select element.
-    $query = db_select('field_data_field_rfcd_course', 'course');
-    $query->innerJoin('node', 'n', 'course.field_rfcd_course_target_id=n.nid');
-    $query->fields('n', ['nid', 'title']);
-    $query->condition('course.bundle', 'free_course_request_daycare');
-    $query->orderBy('nid', 'DESC');
-    $result = $query->execute()->fetchAllKeyed();
-    foreach ($result as $nid => $title) {
-      $result[$nid] = $title . ' (' . $nid . ')';
-    }
-
-    // Replace the view textfield, with a select list.
-    $form['field_rfcd_course_target_id'] = [
-      '#type' => 'select',
-      '#options' => ['' => 'Vælg forløb'] + (empty($result) ? [] : $result)
-    ];
-  }
-
 }
 
 

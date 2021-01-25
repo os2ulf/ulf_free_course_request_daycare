@@ -794,19 +794,6 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['filters']['field_rfcd_status_value']['expose']['remember_roles'] = array(
     2 => '2',
   );
-  /* Filter criterion: Entityform Submission: Forløb (field_rfcd_course) */
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['id'] = 'field_rfcd_course_target_id';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['table'] = 'field_data_field_rfcd_course';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['field'] = 'field_rfcd_course_target_id';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['group'] = 1;
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['operator_id'] = 'field_rfcd_course_target_id_op';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['label'] = 'Forløb';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['operator'] = 'field_rfcd_course_target_id_op';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['identifier'] = 'field_rfcd_course_target_id';
-  $handler->display->display_options['filters']['field_rfcd_course_target_id']['expose']['remember_roles'] = array(
-    2 => '2',
-  );
   /* Filter criterion: Entityform Submission: Institution (field_rfcd_school) */
   $handler->display->display_options['filters']['field_rfcd_school_value']['id'] = 'field_rfcd_school_value';
   $handler->display->display_options['filters']['field_rfcd_school_value']['table'] = 'field_data_field_rfcd_school';
