@@ -269,7 +269,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['id'] = 'field_rfcd_course_target_id';
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['table'] = 'field_data_field_rfcd_course';
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['field'] = 'field_rfcd_course_target_id';
-  /* Relationship: Entityform Submission: User uid */
+  /* Relationship: Entityform Submission: Bruger uid */
   $handler->display->display_options['relationships']['user']['id'] = 'user';
   $handler->display->display_options['relationships']['user']['table'] = 'entityform';
   $handler->display->display_options['relationships']['user']['field'] = 'user';
@@ -309,7 +309,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['delete_entityform']['field'] = 'delete_entityform';
   $handler->display->display_options['fields']['delete_entityform']['label'] = 'Slet';
   $handler->display->display_options['fields']['delete_entityform']['hide_alter_empty'] = FALSE;
-  /* Field: Entityform Type: Label */
+  /* Field: Entityform Type: Etiket */
   $handler->display->display_options['fields']['label_1']['id'] = 'label_1';
   $handler->display->display_options['fields']['label_1']['table'] = 'entityform_type';
   $handler->display->display_options['fields']['label_1']['field'] = 'label';
@@ -319,7 +319,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['created']['table'] = 'entityform';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['date_format'] = 'medium';
-  /* Field: Entityform Submission: Date changed */
+  /* Field: Entityform Submission: Dato ændret */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'entityform';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
@@ -522,7 +522,7 @@ function ulf_free_course_request_daycare_views_default_views() {
       ),
     ),
   );
-  /* Field: Entityform Submission: Entityform submission ID */
+  /* Field: Entityform Submission: Entityform submission id */
   $handler->display->display_options['fields']['entityform_id']['id'] = 'entityform_id';
   $handler->display->display_options['fields']['entityform_id']['table'] = 'entityform';
   $handler->display->display_options['fields']['entityform_id']['field'] = 'entityform_id';
@@ -914,13 +914,13 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['id'] = 'field_rfcd_course_target_id';
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['table'] = 'field_data_field_rfcd_course';
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['field'] = 'field_rfcd_course_target_id';
-  /* Relationship: Entityform Submission: User uid */
+  /* Relationship: Entityform Submission: Bruger uid */
   $handler->display->display_options['relationships']['user']['id'] = 'user';
   $handler->display->display_options['relationships']['user']['table'] = 'entityform';
   $handler->display->display_options['relationships']['user']['field'] = 'user';
   $handler->display->display_options['relationships']['user']['label'] = 'forfatter';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Entityform Submission: Entityform submission ID */
+  /* Field: Entityform Submission: Entityform submission id */
   $handler->display->display_options['fields']['entityform_id']['id'] = 'entityform_id';
   $handler->display->display_options['fields']['entityform_id']['table'] = 'entityform';
   $handler->display->display_options['fields']['entityform_id']['field'] = 'entityform_id';
@@ -1215,7 +1215,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['table'] = 'field_data_field_rfcd_course';
   $handler->display->display_options['relationships']['field_rfcd_course_target_id']['field'] = 'field_rfcd_course_target_id';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Entityform Submission: Entityform submission ID */
+  /* Field: Entityform Submission: Entityform submission id */
   $handler->display->display_options['fields']['entityform_id']['id'] = 'entityform_id';
   $handler->display->display_options['fields']['entityform_id']['table'] = 'entityform';
   $handler->display->display_options['fields']['entityform_id']['field'] = 'entityform_id';
@@ -1399,7 +1399,7 @@ function ulf_free_course_request_daycare_views_default_views() {
     t('Slet'),
     t('Form Type'),
     t('Date submitted'),
-    t('Date changed'),
+    t('Dato ændret'),
     t('Søg på skole, person, forløb, udbyder eller id'),
     t('Status'),
     t('Afviklingsdato fra'),
