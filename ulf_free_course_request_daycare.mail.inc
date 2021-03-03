@@ -53,7 +53,7 @@ function _rfcd_notify(EntityMetadataWrapper $wrapper, $action) {
     case 'on_change_accepted':
       $params['subject'] = t('Financing request accepted', array(), array('langcode' => $language->language));
       $params['body'] = '<h2>' . t('Financing request accepted', array(), array('langcode' => $language->language)) . '</h2>';
-      $params['body'] .= variable_get('ufcr_request_accepted_email', array(
+      $params['body'] .= variable_get('ufcrd_request_accepted_email', array(
         'value' => '',
         'format' => NULL,
       ))['value'];

@@ -41,7 +41,7 @@
   <?php endif; ?>
 
   <div class="fcr-content fcr-receipt"<?php print $content_attributes; ?>>
-    <?php print variable_get('ufcr_receipt', array('value' => '', 'format' => NULL))['value']?>
+    <?php print variable_get('ufcrd_receipt', array('value' => '', 'format' => NULL))['value']?>
   </div>
 
   <div class="content fcr-receipt"<?php print $content_attributes; ?>>
