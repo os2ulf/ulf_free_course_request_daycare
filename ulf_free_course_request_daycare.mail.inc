@@ -137,12 +137,12 @@ function _rfcd_build_mail_confirmation(EntityMetadataWrapper $wrapper) {
 
   $application .= '<p>';
   $application .= '<strong>';
-  $application .= t('School', array(), $translation_lang);
+  $application .= t('Institution', array(), $translation_lang);
   $application .= ':</strong> ';
   $application .= $wrapper->field_rfcd_school->value();
   $application .= '<br/>';
   $application .= '<strong>';
-  $application .= t('Grade', array(), $translation_lang);
+  $application .= t('Group', array(), $translation_lang);
   $application .= ':</strong> ';
   $application .= $wrapper->field_rfcd_grade->value();
   $application .= '<br/>';
@@ -246,12 +246,12 @@ function _rfcd_build_mail_followup(EntityMetadataWrapper $wrapper) {
 
   $application .= '<p>';
   $application .= '<strong>';
-  $application .= t('School', array(), $translation_lang);
+  $application .= t('Institution', array(), $translation_lang);
   $application .= ':</strong> ';
   $application .= $wrapper->field_rfcd_school->value();
   $application .= '<br/>';
   $application .= '<strong>';
-  $application .= t('Grade', array(), $translation_lang);
+  $application .= t('Group', array(), $translation_lang);
   $application .= ':</strong> ';
   $application .= $wrapper->field_rfcd_grade->value();
   $application .= '<br/>';

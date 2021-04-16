@@ -46,7 +46,7 @@
 
   <div class="content fcr-receipt"<?php print $content_attributes; ?>>
     <div class="content--main block--field-text">
-      <h2><?php print t('School'); ?></h2>
+      <h2><?php print t('Institution'); ?></h2>
       <div><?php print render($content['field_rfcd_school']); ?></div>
       <div><?php print render($content['field_rfcd_grade']); ?></div>
       <div><?php print render($content['field_rfcd_name']); ?></div>
