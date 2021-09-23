@@ -63,6 +63,9 @@ function ulf_free_course_request_daycare_cron() {
         $wrapper = $course_request->wrapper();
         $provider = $wrapper->field_rfcd_provider->value();
         $course = $wrapper->field_rfcd_course->value();
+        if ($wrapper->field_rfcd_course_not_found->value() && !empty($wrapper->field_rfcd_new_course_name->value())) {
+          $course->title = $wrapper->field_rfcd_new_course_name->value();
+        }
 
         $params['user'] = $provider;
         $params['node'] = $course;
