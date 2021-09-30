@@ -56,6 +56,7 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
   // Always hide mails sent field. Set in code, and only used for display.
   $form['field_rfcd_mails_sent']['#access'] = FALSE;
   $form['field_rfcd_latest_editor']['#access'] = FALSE;
+  $form['field_rfcd_date'][LANGUAGE_NONE][0]['#required'] = TRUE;
 
 
   // Auto fill send mail checkbox when editing an application.
