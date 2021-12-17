@@ -13,7 +13,7 @@ function ulf_free_course_request_daycare_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['ulf_free_course_request_daycare-free_course_request_summary'] = array(
+  $export['ulf_free_course_request_daycare-free_course_request_dc_summary'] = array(
     'cache' => 1,
     'custom' => 0,
     'delta' => 'free_course_request_dc_summary',

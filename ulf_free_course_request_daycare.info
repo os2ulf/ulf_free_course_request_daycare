@@ -30,6 +30,7 @@ features[ctools][] = field_group:field_group:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[entityform_type][] = free_course_request_daycare
+features[fe_block_settings][] = ulf_free_course_request_daycare-free_course_request_dc_summary
 features[features_api][] = api:2
 features[field_base][] = field_rfcd_attachment
 features[field_base][] = field_rfcd_conditions

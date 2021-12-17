@@ -122,7 +122,7 @@ function ulf_free_course_request_daycare_mail_edit_text($mailkey, $language) {
  */
 function ulf_free_course_request_daycare_block_info() {
   $blocks['free_course_request_dc_summary'] = [
-    'info' => 'Ansøgninger opsummering',
+    'info' => 'Ansøgninger opsummering dagtilbud',
   ];
   return $blocks;
 }
