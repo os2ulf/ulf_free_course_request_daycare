@@ -1346,6 +1346,7 @@ function ulf_free_course_request_daycare_views_default_views() {
   $handler->display->display_options['fields']['field_rfcd_remarks']['id'] = 'field_rfcd_remarks';
   $handler->display->display_options['fields']['field_rfcd_remarks']['table'] = 'field_data_field_rfcd_remarks';
   $handler->display->display_options['fields']['field_rfcd_remarks']['field'] = 'field_rfcd_remarks';
+  $handler->display->display_options['fields']['field_rfcd_remarks']['exclude'] = TRUE;
   /* Field: Entityform Submission: Sendte mails */
   $handler->display->display_options['fields']['field_rfcd_mails_sent']['id'] = 'field_rfcd_mails_sent';
   $handler->display->display_options['fields']['field_rfcd_mails_sent']['table'] = 'field_data_field_rfcd_mails_sent';
