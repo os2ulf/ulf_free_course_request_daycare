@@ -56,6 +56,7 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
   // Always hide mails sent field. Set in code, and only used for display.
   $form['field_rfcd_mails_sent']['#access'] = FALSE;
   $form['field_rfcd_latest_editor']['#access'] = FALSE;
+  $form['field_rfcd_date'][LANGUAGE_NONE][0]['#required'] = TRUE;
 
 
   // Auto fill send mail checkbox when editing an application.
@@ -223,14 +224,6 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
       ':input[id="edit-field-rfcd-course-not-found-und"]' => array('checked' => TRUE),
     ),
   );
-  $form['field_rfcd_new_course_description']['#states'] = array(
-    'required' => array(
-      ':input[id="edit-field-rfcd-course-not-found-und"]' => array('checked' => TRUE),
-    ),
-    'visible' => array(
-      ':input[id="edit-field-rfcd-course-not-found-und"]' => array('checked' => TRUE),
-    )
-  );
 
   // Add custom validation handler.
   $form['#validate'][] = '_rfcd_request_form_validate';
@@ -264,45 +257,6 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
  * Implements hook_form_FORMID_alter().
  */
 function ulf_free_course_request_daycare_form_views_exposed_form_alter(&$form, $form_state) {
-
-  if($form['#id'] == 'views-exposed-form-ulf-free-course-requests-daycare-free-course-requests-daycare-table' || $form['#id'] == 'views-exposed-form-ulf-free-course-requests-daycare-free-course-requests-daycare-user') {
-    $form['#attached']['css'][] = drupal_get_path('module', 'ulf_free_course_request_daycare') . '/css/styling.css';
-
-    $query = db_select('field_data_field_rfcd_date');
-    // exclude results older than 2019, since they must be a mistake
-    $query->condition('field_rfcd_date_value', '1546297200', '>');
-    $query->addExpression('MIN(field_rfcd_date_value)', 'min');
-    $query->addExpression('MAX(field_rfcd_date_value)', 'max');
-
-    $result = $query->execute()->fetchAll();
-    $result = reset($result);
-    $min = $result->min;
-    $max = $result->max;
-
-    $options = [];
-    while ($min < $max) {
-      $month = date('n', $min);
-      $year = date('Y', $min);
-
-      if($month > 6) {
-        $options[$year.'_2'] = '1. halvår '.$year.'/'.($year+1);
-        $min = strtotime(($year+1).'-01-01');
-      } else {
-        $options[$year.'_1'] = '2. halvår '.($year-1).'/'.($year);
-        $min = strtotime($year.'-07-01');
-      }
-    }
-
-    $form['field_rfcd_date_value_2']['semester'] = [
-//      '#type' => 'checkboxes',
-      '#type' => 'select',
-      '#multiple' => true,
-      '#options' => $options,
-    ];
-    $form['field_rfcd_dated_value_2']['min']['#disabled'] = true;
-    $form['field_rfcd_dated_value_2']['max']['#disabled'] = true;
-  }
-
 }
 
 
@@ -425,9 +379,6 @@ function _rfcd_request_form_validate($element, $form_state) {
     if ($form_state['values']['field_rfcd_course_not_found'][LANGUAGE_NONE][0]['value'] == TRUE) {
       if (empty($form_state['values']['field_rfcd_new_course_name'][LANGUAGE_NONE][0]['value'])) {
         form_set_error('field_rfcd_new_course_name',  t('The field %field is required.', array('%field' => $element['field_rfcd_new_course_name'][LANGUAGE_NONE]['#title'])));
-      }
-      if (empty($form_state['values']['field_rfcd_new_course_description'][LANGUAGE_NONE][0]['value'])) {
-        form_set_error('field_rfcd_new_course_description',  t('The field %field is required.', array('%field' => $element['field_rfcd_new_course_description'][LANGUAGE_NONE]['#title'])));
       }
     }
     else {
