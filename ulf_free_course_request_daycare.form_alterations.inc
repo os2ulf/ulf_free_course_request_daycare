@@ -224,14 +224,6 @@ function ulf_free_course_request_daycare_form_free_course_request_daycare_entity
       ':input[id="edit-field-rfcd-course-not-found-und"]' => array('checked' => TRUE),
     ),
   );
-  $form['field_rfcd_new_course_description']['#states'] = array(
-    'required' => array(
-      ':input[id="edit-field-rfcd-course-not-found-und"]' => array('checked' => TRUE),
-    ),
-    'visible' => array(
-      ':input[id="edit-field-rfcd-course-not-found-und"]' => array('checked' => TRUE),
-    )
-  );
 
   // Add custom validation handler.
   $form['#validate'][] = '_rfcd_request_form_validate';
@@ -387,9 +379,6 @@ function _rfcd_request_form_validate($element, $form_state) {
     if ($form_state['values']['field_rfcd_course_not_found'][LANGUAGE_NONE][0]['value'] == TRUE) {
       if (empty($form_state['values']['field_rfcd_new_course_name'][LANGUAGE_NONE][0]['value'])) {
         form_set_error('field_rfcd_new_course_name',  t('The field %field is required.', array('%field' => $element['field_rfcd_new_course_name'][LANGUAGE_NONE]['#title'])));
-      }
-      if (empty($form_state['values']['field_rfcd_new_course_description'][LANGUAGE_NONE][0]['value'])) {
-        form_set_error('field_rfcd_new_course_description',  t('The field %field is required.', array('%field' => $element['field_rfcd_new_course_description'][LANGUAGE_NONE]['#title'])));
       }
     }
     else {
